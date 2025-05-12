@@ -10,47 +10,57 @@
 <header th:replace="~{layout/layout :: header}"></header>
 <!--tabla con los representantes legales-->
 <div class="container mt-5">
-    <h2 class="mb-4" th:text="${titleList}"></h2>
-    <div class="text-end mt-3">
-        <a th:href="@{/legal-representative/create}" class="btn btn-primary">Registrar nuevo</a>
+    <h2 class="mb-4 fw-bold" th:text="${titleList}"></h2>
+    <div class="d-flex justify-content-end mb-3">
+        <a th:href="@{/legal-representative/create}" class="btn btn-primary shadow-sm">
+            <i class="bi bi-person-plus-fill me-2"></i>Registrar nuevo
+        </a>
     </div>
-    <table class="table table-bordered table-hover table-striped align-middle">
-        <thead class="table-dark text-center">
-        <tr>
-            <th>#</th>
-            <th>Nombres</th>
-            <th>Apellidos</th>
-            <th>DNI</th>
-            <th>Género</th>
-            <th>Correo</th>
-            <th>Teléfono</th>
-            <th>Dirección</th>
-            <th>Parentesco</th>
-            <th>Acciones</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="legalRepresentative : ${legalRepresentatives}" class="text-center">
-            <td th:text="${legalRepresentative.idLegalRepresentative}"></td>
-            <td th:text="${legalRepresentative.firstName}"></td>
-            <td th:text="${legalRepresentative.lastName}"></td>
-            <td th:text="${legalRepresentative.dni}"></td>
-            <td th:text="${legalRepresentative.gender}"></td>
-            <td th:text="${legalRepresentative.email}"></td>
-            <td th:text="${legalRepresentative.phoneNumber}"></td>
-            <td th:text="${legalRepresentative.address}"></td>
-            <td th:text="${legalRepresentative.relationship}"></td>
-            <td>
-                <a class="btn btn-sm btn-warning"
-                   th:href="@{/legal-representative/edit/{id}(id=${legalRepresentative.idLegalRepresentative})}">Editar</a>
-                <a class="btn btn-sm btn-danger"
-                   onclick="return confirm('¿Está seguro de eliminar este representante?')">Eliminar</a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover table-striped align-middle shadow">
+            <thead class="table-dark text-center">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nombres</th>
+                <th scope="col">Apellidos</th>
+                <th scope="col">DNI</th>
+                <th scope="col">Género</th>
+                <th scope="col">Correo</th>
+                <th scope="col">Teléfono</th>
+                <th scope="col">Dirección</th>
+                <th scope="col">Parentesco</th>
+                <th scope="col">Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="legalRepresentative : ${legalRepresentatives}">
+                <td class="text-center" th:text="${legalRepresentative.idLegalRepresentative}"></td>
+                <td><span th:text="${legalRepresentative.firstName}"></span></td>
+                <td><span th:text="${legalRepresentative.lastName}"></span></td>
+                <td class="text-center"><span th:text="${legalRepresentative.dni}"></span></td>
+                <td class="text-center"><span th:text="${legalRepresentative.gender}"></span></td>
+                <td><a th:href="'mailto:' + ${legalRepresentative.email}" th:text="${legalRepresentative.email}"></a>
+                </td>
+                <td class="text-center"><span th:text="${legalRepresentative.phoneNumber}"></span></td>
+                <td><span th:text="${legalRepresentative.address}"></span></td>
+                <td class="text-center"><span th:text="${legalRepresentative.relationship}"></span></td>
+                <td class="text-center">
+                    <div class="d-flex gap-2 justify-content-center">
+                        <a class="btn btn-sm btn-warning"
+                           th:href="@{/legal-representative/edit/{id}(id=${legalRepresentative.idLegalRepresentative})}">
+                            <i class="bi bi-pencil-square"></i> Editar
+                        </a>
+                        <button class="btn btn-sm btn-danger"
+                                onclick="return confirm('¿Está seguro de eliminar este representante?')">
+                            <i class="bi bi-trash"></i> Eliminar
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
-
 <footer th:replace="~{layout/layout :: footer}"></footer>
 </body>
 </html>

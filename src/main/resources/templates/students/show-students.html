@@ -9,57 +9,66 @@
 <header th:replace="~{layout/layout :: header}"></header>
 <!--tabla que lista los estudiantes-->
 <div class="container mt-5">
-    <h2 class="mb-4 text-center" th:text="${titleList}">Lista de Estudiantes</h2>
-    <div class="text-end mt-3">
-        <a th:href="@{/students/create}" class="btn btn-primary">Registrar nuevo estudiante</a>
+    <h2 class="mb-4 text-center fw-bold" th:text="${titleList}">Lista de Estudiantes</h2>
+    <div class="d-flex justify-content-end mb-3">
+        <a th:href="@{/students/create}" class="btn btn-primary shadow-sm">
+            <i class="bi bi-plus-circle me-2"></i>Registrar nuevo estudiante
+        </a>
     </div>
-    <table class="table table-bordered table-hover table-striped align-middle">
-        <thead class="table-dark text-center">
-        <tr>
-            <th>#</th>
-            <th>Código</th>
-            <th>DNI</th>
-            <th>Nombre</th>
-            <th>Apellido</th>
-            <th>Fecha de Nacimiento</th>
-            <th>Género</th>
-            <th>Correo</th>
-            <th>Teléfono</th>
-            <th>Dirección</th>
-            <th>Fecha Registro</th>
-            <th>Estado</th>
-            <th>Acciones</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="student : ${students}" class="text-center">
-            <td th:text="${student.idStudent}"></td>
-            <td th:text="${student.codeStudent}"></td>
-            <td th:text="${student.dni}"></td>
-            <td th:text="${student.firstName}"></td>
-            <td th:text="${student.lastName}"></td>
-            <td th:text="${#dates.format(student.birthDate, 'dd/MM/yyyy')}"></td>
-            <td th:text="${student.gender}"></td>
-            <td th:text="${student.email}"></td>
-            <td th:text="${student.phoneNumber}"></td>
-            <td th:text="${student.address}"></td>
-            <td th:text="${#dates.format(student.dateRegistration, 'dd/MM/yyyy')}"></td>
-            <td>
-                <span class="badge bg-success" th:if="${student.status == 'activo'}">Activo</span>
-                <span class="badge bg-secondary" th:if="${student.status != 'activo'}" th:text="${student.status}">Inactivo</span>
-            </td>
-            <td>
-                <a
-                        th:href="@{/students/edit/{id}(id=${student.idStudent})}"
-                        class="btn btn-sm btn-warning">Editar</a>
-                <a class="btn btn-sm btn-danger"
-                   onclick="return confirm('¿Está seguro de eliminar este estudiante?')">Eliminar</a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-
-
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover table-striped align-middle shadow">
+            <thead class="table-dark text-center">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Código</th>
+                <th scope="col">DNI</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Apellido</th>
+                <th scope="col">Fecha de Nacimiento</th>
+                <th scope="col">Género</th>
+                <th scope="col">Correo</th>
+                <th scope="col">Teléfono</th>
+                <th scope="col">Dirección</th>
+                <th scope="col">Fecha Registro</th>
+                <th scope="col">Estado</th>
+                <th scope="col">Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="student : ${students}">
+                <td class="text-center" th:text="${student.idStudent}"></td>
+                <td class="text-center" th:text="${student.codeStudent}"></td>
+                <td class="text-center" th:text="${student.dni}"></td>
+                <td><span th:text="${student.firstName}"></span></td>
+                <td><span th:text="${student.lastName}"></span></td>
+                <td class="text-center"><span th:text="${#dates.format(student.birthDate, 'dd/MM/yyyy')}"></span></td>
+                <td class="text-center"><span th:text="${student.gender}"></span></td>
+                <td><a th:href="'mailto:' + ${student.email}" th:text="${student.email}"></a></td>
+                <td class="text-center"><span th:text="${student.phoneNumber}"></span></td>
+                <td><span th:text="${student.address}"></span></td>
+                <td class="text-center"><span th:text="${#dates.format(student.dateRegistration, 'dd/MM/yyyy')}"></span>
+                </td>
+                <td class="text-center">
+                    <span class="badge bg-success" th:if="${student.status == 'activo'}">Activo</span>
+                    <span class="badge bg-secondary" th:if="${student.status != 'activo'}" th:text="${student.status}">Inactivo</span>
+                </td>
+                <td class="text-center">
+                    <div class="d-flex gap-2 justify-content-center">
+                        <a
+                                th:href="@{/students/edit/{id}(id=${student.idStudent})}"
+                                class="btn btn-sm btn-warning">
+                            <i class="bi bi-pencil-square"></i> Editar
+                        </a>
+                        <button class="btn btn-sm btn-danger"
+                                onclick="return confirm('¿Está seguro de eliminar este estudiante?')">
+                            <i class="bi bi-trash"></i> Eliminar
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
 <footer th:replace="~{layout/layout :: footer}"></footer>
 </body>
