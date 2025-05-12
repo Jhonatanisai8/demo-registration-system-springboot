@@ -25,8 +25,7 @@ public class LegalRepresentativeController {
 
     @GetMapping(path = "")
     public String showLegalRepresentatives(@RequestParam(name = "page", defaultValue = "0") int page,
-                                           Map<String, Object> model,
-                                           Model model1) {
+                                           Map<String, Object> model) {
         model.put("titleList", "Lista de Representantes Legales");
         Pageable pageable = PageRequest.of(page, 15);
         Page<LegalRepresentative> legalRepresentatives = legalRepresentativeService.findAll(pageable);
@@ -53,7 +52,6 @@ public class LegalRepresentativeController {
         if (bindingResult.hasErrors()) {
             return "legal-representatives/create-legal-representative";
         }
-        model.addAttribute("legalRepresentative", legalRepresentative);
         legalRepresentativeService.saveLegalRepresentative(legalRepresentative);
         return "redirect:/legal-representative";
     }
