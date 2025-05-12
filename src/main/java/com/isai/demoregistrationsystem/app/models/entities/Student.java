@@ -27,7 +27,9 @@ public class Student {
     private String status;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_Legal_representative")
+    @JoinColumn(name = "id_legal_representative",
+            referencedColumnName = "idLegalRepresentative",
+            nullable = false)
     private LegalRepresentative legalRepresentative;
 
 }
