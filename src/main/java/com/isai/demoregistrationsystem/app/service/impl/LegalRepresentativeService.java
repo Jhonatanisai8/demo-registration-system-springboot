@@ -8,6 +8,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class LegalRepresentativeService
@@ -22,5 +24,14 @@ public class LegalRepresentativeService
     @Override
     public Page<LegalRepresentative> findAll(Pageable pageable) {
         return legalRepresentativeRepository.findAll(pageable);
+    }
+
+    public List<LegalRepresentative> legalRepresentatives() {
+        return legalRepresentativeRepository.findAll();
+    }
+
+    @Override
+    public LegalRepresentative findById(Long id) {
+        return legalRepresentativeRepository.findById(id).orElseThrow();
     }
 }

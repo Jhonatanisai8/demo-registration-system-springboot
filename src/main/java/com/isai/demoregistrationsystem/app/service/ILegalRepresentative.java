@@ -8,4 +8,6 @@ public interface ILegalRepresentative {
     void saveLegalRepresentative(LegalRepresentative legalRepresentative);
 
     Page<LegalRepresentative> findAll(Pageable pageable);
+
+    LegalRepresentative findById(Long id);
 }
