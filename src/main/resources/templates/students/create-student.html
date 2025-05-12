@@ -11,42 +11,48 @@
 <div class="container mt-5">
     <div class="card shadow rounded-4">
         <div class="card-body p-4">
-            <h2 class="mb-4 text-center" th:text="${subtitle}">Formulario Estudiante</h2>
+            <h2 class="mb-4 text-center fw-bold" th:text="${subtitle}">Formulario Estudiante</h2>
 
-            <form th:action="@{${formAction}}" th:object="${student}" method="post" class="row g-3 needs-validation">
+            <form th:action="@{${formAction}}" th:object="${student}" method="post" class="row g-3 needs-validation"
+                  novalidate>
 
                 <input type="hidden" th:field="*{idStudent}"/>
 
                 <div class="col-md-4">
-                    <label class="form-label">Código</label>
-                    <input type="text" th:field="*{codeStudent}" class="form-control" required>
+                    <label for="codeStudent" class="form-label">Código</label>
+                    <input type="text" th:field="*{codeStudent}" class="form-control" id="codeStudent" required>
+                    <div class="invalid-feedback">Por favor, ingrese el código del estudiante.</div>
                 </div>
 
                 <div class="col-md-4">
-                    <label class="form-label">DNI</label>
-                    <input type="text" th:field="*{dni}" class="form-control" maxlength="8" required>
+                    <label for="dni" class="form-label">DNI</label>
+                    <input type="text" th:field="*{dni}" class="form-control" id="dni" maxlength="8" required>
+                    <div class="invalid-feedback">Por favor, ingrese el DNI.</div>
                 </div>
 
                 <div class="col-md-4">
-                    <label class="form-label">Fecha de Nacimiento</label>
-                    <input type="date" th:field="*{birthDate}" class="form-control" required>
+                    <label for="birthDate" class="form-label">Fecha de Nacimiento</label>
+                    <input type="date" th:field="*{birthDate}" class="form-control" id="birthDate" required>
+                    <div class="invalid-feedback">Por favor, seleccione la fecha de nacimiento.</div>
                 </div>
 
                 <div class="col-md-6">
-                    <label class="form-label">Nombres</label>
-                    <input type="text" th:field="*{firstName}" class="form-control" required>
+                    <label for="firstName" class="form-label">Nombres</label>
+                    <input type="text" th:field="*{firstName}" class="form-control" id="firstName" required>
+                    <div class="invalid-feedback">Por favor, ingrese los nombres.</div>
                 </div>
 
                 <div class="col-md-6">
-                    <label class="form-label">Apellidos</label>
-                    <input type="text" th:field="*{lastName}" class="form-control" required>
+                    <label for="lastName" class="form-label">Apellidos</label>
+                    <input type="text" th:field="*{lastName}" class="form-control" id="lastName" required>
+                    <div class="invalid-feedback">Por favor, ingrese los apellidos.</div>
                 </div>
 
                 <div class="col-md-4">
                     <label class="form-label d-block">Género</label>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" th:field="*{gender}" value="Masculino"
-                               id="genderMale">
+                               id="genderMale" required>
                         <label class="form-check-label" for="genderMale">Masculino</label>
                     </div>
                     <div class="form-check form-check-inline">
@@ -54,60 +60,86 @@
                                id="genderFemale">
                         <label class="form-check-label" for="genderFemale">Femenino</label>
                     </div>
+                    <div class="invalid-feedback">Por favor, seleccione el género.</div>
                     <div class="text-danger" th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}"></div>
                 </div>
 
 
                 <div class="col-md-4">
-                    <label class="form-label">Correo electrónico</label>
-                    <input type="email" th:field="*{email}" class="form-control" required>
+                    <label for="email" class="form-label">Correo electrónico</label>
+                    <input type="email" th:field="*{email}" class="form-control" id="email" required>
+                    <div class="invalid-feedback">Por favor, ingrese un correo electrónico válido.</div>
                 </div>
 
                 <div class="col-md-4">
-                    <label class="form-label">Teléfono</label>
-                    <input type="text" th:field="*{phoneNumber}" class="form-control" maxlength="9" required>
+                    <label for="phoneNumber" class="form-label">Teléfono</label>
+                    <input type="text" th:field="*{phoneNumber}" class="form-control" id="phoneNumber" maxlength="9"
+                           required>
+                    <div class="invalid-feedback">Por favor, ingrese el número de teléfono.</div>
                 </div>
 
                 <div class="col-12">
-                    <label class="form-label">Dirección</label>
-                    <input type="text" th:field="*{address}" class="form-control" required>
+                    <label for="address" class="form-label">Dirección</label>
+                    <input type="text" th:field="*{address}" class="form-control" id="address" required>
+                    <div class="invalid-feedback">Por favor, ingrese la dirección.</div>
                 </div>
 
                 <div class="col-md-6">
-                    <label class="form-label">Fecha de Registro</label>
-                    <input type="date" th:field="*{dateRegistration}" class="form-control" required>
+                    <label for="dateRegistration" class="form-label">Fecha de Registro</label>
+                    <input type="date" th:field="*{dateRegistration}" class="form-control" id="dateRegistration"
+                           required>
+                    <div class="invalid-feedback">Por favor, seleccione la fecha de registro.</div>
                 </div>
 
                 <div class="col-md-6">
-                    <label class="form-label">Estado</label>
-                    <select th:field="*{status}" class="form-select" required>
+                    <label for="status" class="form-label">Estado</label>
+                    <select th:field="*{status}" class="form-select" id="status" required>
                         <option value="" disabled>Seleccione...</option>
                         <option value="activo" th:selected="*{status} == 'activo'">Activo</option>
                         <option value="inactivo" th:selected="*{status} == 'inactivo'">Inactivo</option>
                     </select>
+                    <div class="invalid-feedback">Por favor, seleccione el estado.</div>
                 </div>
 
                 <div class="col-md-6">
                     <label for="legalRepresentative" class="form-label">Representante Legal</label>
                     <select id="legalRepresentative" th:field="*{legalRepresentative}" class="form-select" required>
-                        <option value="">Seleccione...</option>
+                        <option value="" disabled selected>Seleccione...</option>
                         <option th:each="legalRepre : ${legalRepresentativeServices}"
                                 th:value="${legalRepre.idLegalRepresentative}"
                                 th:text="${legalRepre.firstName + ' ' + legalRepre.lastName}">
                         </option>
                     </select>
+                    <div class="invalid-feedback">Por favor, seleccione un representante legal.</div>
                     <div class="text-danger" th:if="${#fields.hasErrors('legalRepresentative')}"
                          th:errors="*{legalRepresentative}"></div>
                 </div>
 
                 <div class="col-12 text-end mt-4">
-                    <a th:href="@{/students}" class="btn btn-secondary me-2">Cancelar</a>
-                    <button type="submit" class="btn btn-primary">Guardar</button>
+                    <a th:href="@{/students}" class="btn btn-secondary shadow-sm"><i class="bi bi-x-circle me-2"></i>Cancelar</a>
+                    <button type="submit" class="btn btn-primary shadow-sm"><i class="bi bi-save me-2"></i>Guardar
+                    </button>
                 </div>
             </form>
         </div>
     </div>
 </div>
+
+<script>
+    (() => {
+        'use strict'
+        const forms = document.querySelectorAll('.needs-validation')
+        Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+                form.classList.add('was-validated')
+            }, false)
+        })
+    })()
+</script>
 <footer th:replace="~{layout/layout :: footer}"></footer>
 </body>
 </html>

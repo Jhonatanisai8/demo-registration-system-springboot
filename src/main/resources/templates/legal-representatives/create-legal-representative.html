@@ -8,35 +8,36 @@
 <body>
 
 <header th:replace="~{layout/layout :: header}"></header>
-<!--formulario de registro de representantes legales-->
 <div class="container mt-5">
-    <h2 class="mb-4"
-        th:text="${subtitle}"></h2>
-    <form th:action="@{${formAction}}" th:object="${legalRepresentative}" method="post" class="row g-3">
+    <h2 class="mb-4 fw-bold" th:text="${subtitle}"></h2>
+    <form th:action="@{${formAction}}" th:object="${legalRepresentative}" method="post" class="row g-3 needs-validation"
+          novalidate>
 
-        <!-- Campo oculto para el ID -->
         <input type="hidden" th:field="*{idLegalRepresentative}"/>
 
         <div class="col-md-6">
             <label for="firstName" class="form-label">Nombres</label>
             <input type="text" class="form-control" id="firstName" th:field="*{firstName}" required>
+            <div class="invalid-feedback">Por favor, ingrese los nombres.</div>
         </div>
 
         <div class="col-md-6">
             <label for="lastName" class="form-label">Apellidos</label>
             <input type="text" class="form-control" id="lastName" th:field="*{lastName}" required>
+            <div class="invalid-feedback">Por favor, ingrese los apellidos.</div>
         </div>
 
         <div class="col-md-4">
             <label for="dni" class="form-label">DNI</label>
             <input type="text" class="form-control" id="dni" th:field="*{dni}" maxlength="8" required>
+            <div class="invalid-feedback">Por favor, ingrese el DNI.</div>
         </div>
 
         <div class="col-md-4">
             <label class="form-label d-block">Género</label>
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" id="masculino" name="gender" value="Masculino"
-                       th:field="*{gender}">
+                       th:field="*{gender}" required>
                 <label class="form-check-label" for="masculino">Masculino</label>
             </div>
             <div class="form-check form-check-inline">
@@ -44,6 +45,7 @@
                        th:field="*{gender}">
                 <label class="form-check-label" for="femenino">Femenino</label>
             </div>
+            <div class="invalid-feedback">Por favor, seleccione el género.</div>
         </div>
 
 
@@ -56,29 +58,51 @@
                 <option value="Tutor Legal">Tutor Legal</option>
                 <option value="Otro">Otro</option>
             </select>
+            <div class="invalid-feedback">Por favor, seleccione el parentesco.</div>
         </div>
 
         <div class="col-md-6">
             <label for="email" class="form-label">Correo electrónico</label>
             <input type="email" class="form-control" id="email" th:field="*{email}">
+            <div class="invalid-feedback">Por favor, ingrese un correo electrónico válido.</div>
         </div>
 
         <div class="col-md-6">
             <label for="phoneNumber" class="form-label">Teléfono</label>
             <input type="text" class="form-control" id="phoneNumber" th:field="*{phoneNumber}" required>
+            <div class="invalid-feedback">Por favor, ingrese el número de teléfono.</div>
         </div>
 
         <div class="col-12">
             <label for="address" class="form-label">Dirección</label>
             <textarea class="form-control" id="address" th:field="*{address}" rows="2" required></textarea>
+            <div class="invalid-feedback">Por favor, ingrese la dirección.</div>
         </div>
 
         <div class="col-12 text-end">
-            <button type="submit" class="btn btn-primary">Guardar</button>
-            <a th:href="@{/legal-representative}" class="btn btn-secondary">Cancelar</a>
+            <button type="submit" class="btn btn-primary shadow-sm"><i class="bi bi-save me-2"></i>Guardar</button>
+            <a th:href="@{/legal-representative}" class="btn btn-secondary shadow-sm"><i
+                    class="bi bi-x-circle me-2"></i>Cancelar</a>
         </div>
     </form>
 </div>
+
+<script>
+    (() => {
+        'use strict'
+        const forms = document.querySelectorAll('.needs-validation')
+
+        Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+                form.classList.add('was-validated')
+            }, false)
+        })
+    })()
+</script>
 <footer th:replace="~{layout/layout :: footer}"></footer>
 </body>
 </html>
