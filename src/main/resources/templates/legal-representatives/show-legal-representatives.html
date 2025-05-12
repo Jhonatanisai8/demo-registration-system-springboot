@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es"
+      xmlns:th="https://www.thymeleaf.org">
+<head th:replace="~{layout/layout :: head}">
+    <meta charset="UTF-8">
+    <title th:text="${titleList}"></title>
+</head>
+<body>
+
+<header th:replace="~{layout/layout :: header}"></header>
+<!--tabla con los representantes legales-->
+<div class="container mt-5">
+    <h2 class="mb-4" th:text="${titleList}"></h2>
+    <div class="text-end mt-3">
+        <a th:href="@{/legal-representative/create}" class="btn btn-primary">Registrar nuevo</a>
+    </div>
+    <table class="table table-bordered table-hover table-striped align-middle">
+        <thead class="table-dark text-center">
+        <tr>
+            <th>#</th>
+            <th>Nombres</th>
+            <th>Apellidos</th>
+            <th>DNI</th>
+            <th>Género</th>
+            <th>Correo</th>
+            <th>Teléfono</th>
+            <th>Dirección</th>
+            <th>Parentesco</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="legalRepresentative : ${legalRepresentatives}" class="text-center">
+            <td th:text="${legalRepresentative.idLegalRepresentative}"></td>
+            <td th:text="${legalRepresentative.firstName}"></td>
+            <td th:text="${legalRepresentative.lastName}"></td>
+            <td th:text="${legalRepresentative.dni}"></td>
+            <td th:text="${legalRepresentative.gender}"></td>
+            <td th:text="${legalRepresentative.email}"></td>
+            <td th:text="${legalRepresentative.phoneNumber}"></td>
+            <td th:text="${legalRepresentative.address}"></td>
+            <td th:text="${legalRepresentative.relationship}"></td>
+            <td>
+                <a class="btn btn-sm btn-warning">Editar</a>
+                <a class="btn btn-sm btn-danger"
+                   onclick="return confirm('¿Está seguro de eliminar este representante?')">Eliminar</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<footer th:replace="~{layout/layout :: footer}"></footer>
+</body>
+</html>
