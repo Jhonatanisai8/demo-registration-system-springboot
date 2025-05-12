@@ -50,6 +50,7 @@
             </td>
             <td>
                 <a
+                        th:href="@{/students/edit/{id}(id=${student.idStudent})}"
                         class="btn btn-sm btn-warning">Editar</a>
                 <a class="btn btn-sm btn-danger"
                    onclick="return confirm('¿Está seguro de eliminar este estudiante?')">Eliminar</a>

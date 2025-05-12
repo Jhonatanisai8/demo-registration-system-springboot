@@ -30,4 +30,9 @@ public class StudentService
     public Page<Student> findAll(Pageable pageable) {
         return studentRepository.findAll(pageable);
     }
+
+    @Override
+    public Student findById(Long id) {
+        return studentRepository.findById(id).orElseThrow();
+    }
 }

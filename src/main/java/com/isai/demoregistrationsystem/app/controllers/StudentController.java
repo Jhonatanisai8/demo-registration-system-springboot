@@ -50,28 +50,44 @@ public class StudentController {
         return "students/show-students";
     }
 
-    @GetMapping(path = "/create")
+    @GetMapping("/create")
     public String viewCreateStudent(Map<String, Object> model) {
         Student student = new Student();
-        model.put("title", "Registro de Estudiantes");
         model.put("student", student);
+        model.put("formAction", "/students/save");
+        model.put("title", "Registrar Estudiante");
+        model.put("subtitle", "Nuevo Estudiante");
+        model.put("legalRepresentativeServices", legalRepresentativeServices());
         return "students/create-student";
     }
 
-    @PostMapping(path = "/create")
+    @GetMapping("/edit/{id}")
+    public String viewEditStudent(@PathVariable("id") Long id, Map<String, Object> model) {
+        Student student = studentService.findById(id);
+        model.put("student", student);
+        model.put("formAction", "/students/save"); // misma acción POST
+        model.put("title", "Editar Estudiante");
+        model.put("subtitle", "Modificar Estudiante");
+        model.put("legalRepresentativeServices", legalRepresentativeServices());
+        return "students/create-student";
+    }
+
+    @PostMapping("/save")
     public String saveStudent(
-            @Valid Student student,
+            @Valid @ModelAttribute("student") Student student,
             BindingResult result,
             Model model) {
-        model.addAttribute("subtitle", "Registro de Estudiante");
-        LOGGER.info("DATOS DEL FROM: {}", student);
+
+        model.addAttribute("formAction", "/students/save");
+        model.addAttribute("title", student.getIdStudent() == null ? "Registrar Estudiante" : "Editar Estudiante");
+        model.addAttribute("subtitle", student.getIdStudent() == null ? "Nuevo Estudiante" : "Modificar Estudiante");
+        model.addAttribute("legalRepresentativeServices", legalRepresentativeServices());
+
         if (result.hasErrors()) {
-            model.addAttribute("title", "Registro de Estudiantes");
-            model.addAttribute("legalRepresentativeServices", legalRepresentativeServices());
             return "students/create-student";
         }
+
         studentService.saveStudent(student);
-        System.out.println("SE GUARDO EL ESTUDIANTE");
         return "redirect:/students";
     }
 

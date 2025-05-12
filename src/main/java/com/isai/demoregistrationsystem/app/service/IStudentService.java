@@ -13,4 +13,6 @@ public interface IStudentService {
     List<Student> listAllStudents();
 
     Page<Student> findAll(Pageable pageable);
+
+    Student findById(Long id);
 }
