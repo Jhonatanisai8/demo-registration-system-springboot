@@ -4,6 +4,8 @@ import com.isai.demoregistrationsystem.app.models.entities.Student;
 import com.isai.demoregistrationsystem.app.repositorys.StudentRepository;
 import com.isai.demoregistrationsystem.app.service.IStudentService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,5 +24,10 @@ public class StudentService
     @Override
     public List<Student> listAllStudents() {
         return studentRepository.findAll();
+    }
+
+    @Override
+    public Page<Student> findAll(Pageable pageable) {
+        return studentRepository.findAll(pageable);
     }
 }

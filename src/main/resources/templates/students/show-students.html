@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es"
+      xmlns:th="https://www.thymeleaf.org">
+<head th:replace="~{layout/layout :: head}">
+    <meta charset="UTF-8">
+    <title th:text="${titleList}"></title>
+</head>
+<body>
+<header th:replace="~{layout/layout :: header}"></header>
+<!--tabla que lista los estudiantes-->
+<div class="container mt-5">
+    <h2 class="mb-4 text-center" th:text="${titleList}">Lista de Estudiantes</h2>
+    <div class="text-end mt-3">
+        <a th:href="@{/student/create}" class="btn btn-primary">Registrar nuevo estudiante</a>
+    </div>
+    <table class="table table-bordered table-hover table-striped align-middle">
+        <thead class="table-dark text-center">
+        <tr>
+            <th>#</th>
+            <th>Código</th>
+            <th>DNI</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Fecha de Nacimiento</th>
+            <th>Género</th>
+            <th>Correo</th>
+            <th>Teléfono</th>
+            <th>Dirección</th>
+            <th>Fecha Registro</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="student : ${students}" class="text-center">
+            <td th:text="${student.idStudent}"></td>
+            <td th:text="${student.codeStudent}"></td>
+            <td th:text="${student.dni}"></td>
+            <td th:text="${student.firstName}"></td>
+            <td th:text="${student.lastName}"></td>
+            <td th:text="${#dates.format(student.birthDate, 'dd/MM/yyyy')}"></td>
+            <td th:text="${student.gender}"></td>
+            <td th:text="${student.email}"></td>
+            <td th:text="${student.phoneNumber}"></td>
+            <td th:text="${student.address}"></td>
+            <td th:text="${#dates.format(student.dateRegistration, 'dd/MM/yyyy')}"></td>
+            <td>
+                <span class="badge bg-success" th:if="${student.status == 'activo'}">Activo</span>
+                <span class="badge bg-secondary" th:if="${student.status != 'activo'}" th:text="${student.status}">Inactivo</span>
+            </td>
+            <td>
+                <a
+                        class="btn btn-sm btn-warning">Editar</a>
+                <a class="btn btn-sm btn-danger"
+                   onclick="return confirm('¿Está seguro de eliminar este estudiante?')">Eliminar</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+
+</div>
+<footer th:replace="~{layout/layout :: footer}"></footer>
+</body>
+</html>
