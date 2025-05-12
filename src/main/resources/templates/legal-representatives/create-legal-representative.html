@@ -3,13 +3,74 @@
       xmlns:th="https://www.thymeleaf.org">
 <head th:replace="~{layout/layout :: head}">
     <meta charset="UTF-8">
-    <title>Registro de Representantes Legales</title>
+    <title th:text="${title}"></title>
 </head>
 <body>
 
 <header th:replace="~{layout/layout :: header}"></header>
-<div class="container">
-    <h1>Registro de Representantes Legales</h1>
+<!--formulario de registro de representantes legales-->
+<div class="container mt-5">
+    <h2 class="mb-4"
+        th:text="${subtitle}"></h2>
+    <form th:action="@{/legal-representative/create}" th:object="${legalRepresentative}"
+          method="post" class="row g-3">
+
+        <div class="col-md-6">
+            <label for="firstName" class="form-label">Nombres</label>
+            <input type="text" class="form-control" id="firstName" th:field="*{firstName}" required>
+        </div>
+
+        <div class="col-md-6">
+            <label for="lastName" class="form-label">Apellidos</label>
+            <input type="text" class="form-control" id="lastName" th:field="*{lastName}" required>
+        </div>
+
+        <div class="col-md-4">
+            <label for="dni" class="form-label">DNI</label>
+            <input type="text" class="form-control" id="dni" th:field="*{dni}" maxlength="8" required>
+        </div>
+
+        <div class="col-md-4">
+            <label for="gender" class="form-label">Género</label>
+            <select class="form-select" id="gender" th:field="*{gender}" required>
+                <option value="" disabled selected>Seleccione</option>
+                <option value="Masculino">Masculino</option>
+                <option value="Femenino">Femenino</option>
+                <option value="Otro">Otro</option>
+            </select>
+        </div>
+
+        <div class="col-md-4">
+            <label for="relationship" class="form-label">Parentesco</label>
+            <select class="form-select" id="relationship" th:field="*{relationship}" required>
+                <option value="" disabled selected>Seleccione</option>
+                <option value="Padre">Padre</option>
+                <option value="Madre">Madre</option>
+                <option value="Tutor Legal">Tutor Legal</option>
+                <option value="Otro">Otro</option>
+            </select>
+        </div>
+
+        <div class="col-md-6">
+            <label for="email" class="form-label">Correo electrónico</label>
+            <input type="email" class="form-control" id="email" th:field="*{email}">
+        </div>
+
+        <div class="col-md-6">
+            <label for="phoneNumber" class="form-label">Teléfono</label>
+            <input type="text" class="form-control" id="phoneNumber" th:field="*{phoneNumber}" required>
+        </div>
+
+        <div class="col-12">
+            <label for="address" class="form-label">Dirección</label>
+            <textarea class="form-control" id="address" th:field="*{address}" rows="2" required></textarea>
+        </div>
+
+        <div class="col-12 text-end">
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            <a th:href="@{/apoderados}" class="btn btn-secondary">Cancelar</a>
+        </div>
+    </form>
 </div>
 <footer th:replace="~{layout/layout :: footer}"></footer>
 </body>
