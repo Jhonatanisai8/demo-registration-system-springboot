@@ -35,26 +35,46 @@ public class LegalRepresentativeController {
         return "legal-representatives/show-legal-representatives";
     }
 
-    @GetMapping(path = "/create")
-    public String viewLegalRepresentative(Map<String, Object> model) {
+    // Vista para registrar nuevo representante legal
+    @GetMapping("/create")
+    public String viewCreateForm(Map<String, Object> model) {
         LegalRepresentative legalRepresentative = new LegalRepresentative();
         model.put("legalRepresentative", legalRepresentative);
+        model.put("formAction", "/legal-representative/save"); // Usamos una sola acción POST para ambos casos
+        model.put("title", "Registrar Representante Legal");
+        model.put("subtitle", "Nuevo Representante Legal");
         return "legal-representatives/create-legal-representative";
     }
 
-    @PostMapping(path = "/create")
+    // Vista para editar un representante existente
+    @GetMapping("/edit/{id}")
+    public String viewEditForm(@PathVariable("id") Long id, Map<String, Object> model) {
+        LegalRepresentative legalRepresentative = legalRepresentativeService.findById(id);
+        model.put("legalRepresentative", legalRepresentative);
+        model.put("formAction", "/legal-representative/save"); // misma acción POST
+        model.put("title", "Editar Representante Legal");
+        model.put("subtitle", "Modificar Representante Legal");
+        return "legal-representatives/create-legal-representative";
+    }
+
+    // Guarda o actualiza según si el ID existe o no
+    @PostMapping("/save")
     public String saveLegalRepresentative(
-            @Valid LegalRepresentative legalRepresentative,
+            @Valid @ModelAttribute("legalRepresentative") LegalRepresentative legalRepresentative,
             BindingResult bindingResult,
             Model model) {
-        model.addAttribute("title", "Registro de Representantes Legales");
-        model.addAttribute("subtitle", "Registro de Representantes Legal");
+
         if (bindingResult.hasErrors()) {
+            model.addAttribute("formAction", "/legal-representative/save");
+            model.addAttribute("title", legalRepresentative.getIdLegalRepresentative() == null ?
+                    "Registrar Representante Legal" : "Editar Representante Legal");
+            model.addAttribute("subtitle", legalRepresentative.getIdLegalRepresentative() == null ?
+                    "Nuevo Representante Legal" : "Modificar Representante Legal");
             return "legal-representatives/create-legal-representative";
         }
+
+        // Guarda o actualiza automáticamente
         legalRepresentativeService.saveLegalRepresentative(legalRepresentative);
         return "redirect:/legal-representative";
     }
-
-
 }

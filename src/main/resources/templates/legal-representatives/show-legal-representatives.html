@@ -41,7 +41,8 @@
             <td th:text="${legalRepresentative.address}"></td>
             <td th:text="${legalRepresentative.relationship}"></td>
             <td>
-                <a class="btn btn-sm btn-warning">Editar</a>
+                <a class="btn btn-sm btn-warning"
+                   th:href="@{/legal-representative/edit/{id}(id=${legalRepresentative.idLegalRepresentative})}">Editar</a>
                 <a class="btn btn-sm btn-danger"
                    onclick="return confirm('¿Está seguro de eliminar este representante?')">Eliminar</a>
             </td>

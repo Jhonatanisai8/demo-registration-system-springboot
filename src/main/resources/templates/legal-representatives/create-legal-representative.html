@@ -12,8 +12,10 @@
 <div class="container mt-5">
     <h2 class="mb-4"
         th:text="${subtitle}"></h2>
-    <form th:action="@{/legal-representative/create}" th:object="${legalRepresentative}"
-          method="post" class="row g-3">
+    <form th:action="@{${formAction}}" th:object="${legalRepresentative}" method="post" class="row g-3">
+
+        <!-- Campo oculto para el ID -->
+        <input type="hidden" th:field="*{idLegalRepresentative}"/>
 
         <div class="col-md-6">
             <label for="firstName" class="form-label">Nombres</label>
@@ -31,13 +33,19 @@
         </div>
 
         <div class="col-md-4">
-            <label for="gender" class="form-label">Género</label>
-            <select class="form-select" id="gender" th:field="*{gender}" required>
-                <option value="" disabled selected>Seleccione</option>
-                <option value="Masculino">Masculino</option>
-                <option value="Femenino">Femenino</option>
-            </select>
+            <label class="form-label d-block">Género</label>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" id="masculino" name="gender" value="Masculino"
+                       th:field="*{gender}">
+                <label class="form-check-label" for="masculino">Masculino</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" id="femenino" name="gender" value="Femenino"
+                       th:field="*{gender}">
+                <label class="form-check-label" for="femenino">Femenino</label>
+            </div>
         </div>
+
 
         <div class="col-md-4">
             <label for="relationship" class="form-label">Parentesco</label>
