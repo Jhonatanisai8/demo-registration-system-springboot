@@ -3,13 +3,103 @@
       xmlns:th="https://www.thymeleaf.org">
 <head th:replace="~{layout/layout :: head}">
     <meta charset="UTF-8">
-    <title>Registro de Estudiantes</title>
+    <title th:text="${title}"></title>
 </head>
 <body>
 
 <header th:replace="~{layout/layout :: header}"></header>
-<div class="container">
-    <h1>Registro de Estudiantes</h1>
+<div class="container mt-5">
+    <div class="card shadow rounded-4">
+        <div class="card-body p-4">
+            <h2 class="mb-4 text-center" th:text="${subtitle}">Registrar Estudiante</h2>
+
+            <form th:action="@{/students/create}" th:object="${student}"
+                  method="post" class="row g-3 needs-validation">
+
+                <!--                <input type="hidden" th:field="*{idStudent}"/>-->
+
+                <div class="col-md-4">
+                    <label class="form-label">Código</label>
+                    <input type="text" th:field="*{codeStudent}" class="form-control" required>
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label">DNI</label>
+                    <input type="text" th:field="*{dni}" class="form-control" maxlength="8" required>
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label">Fecha de Nacimiento</label>
+                    <input type="date" th:field="*{birthDate}" class="form-control" required>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label">Nombres</label>
+                    <input type="text" th:field="*{firstName}" class="form-control" required>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label">Apellidos</label>
+                    <input type="text" th:field="*{lastName}" class="form-control" required>
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label">Género</label>
+                    <select th:field="*{gender}" class="form-select" required>
+                        <option value="" disabled selected>Seleccione...</option>
+                        <option value="Masculino">Masculino</option>
+                        <option value="Femenino">Femenino</option>
+                    </select>
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label">Correo electrónico</label>
+                    <input type="email" th:field="*{email}" class="form-control" required>
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label">Teléfono</label>
+                    <input type="text" th:field="*{phoneNumber}" class="form-control" maxlength="9" required>
+                </div>
+
+                <div class="col-12">
+                    <label class="form-label">Dirección</label>
+                    <input type="text" th:field="*{address}" class="form-control" required>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label">Fecha de Registro</label>
+                    <input type="date" th:field="*{dateRegistration}" class="form-control" required>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label">Estado</label>
+                    <select th:field="*{status}" class="form-select" required>
+                        <option value="" disabled selected>Seleccione...</option>
+                        <option value="activo">Activo</option>
+                        <option value="inactivo">Inactivo</option>
+                    </select>
+                </div>
+
+                <div class="col-md-6">
+                    <label for="legalRepresentative" class="form-label">Representante Legal</label>
+                    <select id="legalRepresentative" th:field="*{legalRepresentative}" class="form-select" required>
+                        <option value="">Seleccione...</option>
+                        <option th:each="legalRepre : ${legalRepresentativeServices}"
+                                th:value="${legalRepre.idLegalRepresentative}"
+                                th:text="${legalRepre.firstName + ' ' + legalRepre.lastName}"></option>
+                    </select>
+                    <div class="text-danger" th:if="${#fields.hasErrors('legalRepresentative')}"
+                         th:errors="*{legalRepresentative}"></div>
+                </div>
+
+                <div class="col-12 text-end mt-4">
+                    <a th:href="@{/students}" class="btn btn-secondary me-2">Cancelar</a>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 <footer th:replace="~{layout/layout :: footer}"></footer>
 </body>
