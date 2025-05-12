@@ -35,18 +35,16 @@ public class LegalRepresentativeController {
         return "legal-representatives/show-legal-representatives";
     }
 
-    // Vista para registrar nuevo representante legal
     @GetMapping("/create")
     public String viewCreateForm(Map<String, Object> model) {
         LegalRepresentative legalRepresentative = new LegalRepresentative();
         model.put("legalRepresentative", legalRepresentative);
-        model.put("formAction", "/legal-representative/save"); // Usamos una sola acción POST para ambos casos
+        model.put("formAction", "/legal-representative/save");
         model.put("title", "Registrar Representante Legal");
         model.put("subtitle", "Nuevo Representante Legal");
         return "legal-representatives/create-legal-representative";
     }
 
-    // Vista para editar un representante existente
     @GetMapping("/edit/{id}")
     public String viewEditForm(@PathVariable("id") Long id, Map<String, Object> model) {
         LegalRepresentative legalRepresentative = legalRepresentativeService.findById(id);
@@ -57,7 +55,6 @@ public class LegalRepresentativeController {
         return "legal-representatives/create-legal-representative";
     }
 
-    // Guarda o actualiza según si el ID existe o no
     @PostMapping("/save")
     public String saveLegalRepresentative(
             @Valid @ModelAttribute("legalRepresentative") LegalRepresentative legalRepresentative,
@@ -73,7 +70,6 @@ public class LegalRepresentativeController {
             return "legal-representatives/create-legal-representative";
         }
 
-        // Guarda o actualiza automáticamente
         legalRepresentativeService.saveLegalRepresentative(legalRepresentative);
         return "redirect:/legal-representative";
     }
