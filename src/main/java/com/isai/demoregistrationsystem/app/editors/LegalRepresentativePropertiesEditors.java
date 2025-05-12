@@ -15,9 +15,15 @@ public class LegalRepresentativePropertiesEditors
     private final LegalRepresentativeService serviceLegalRepresentative;
 
     @Override
-    public void setAsText(String text) throws IllegalArgumentException {
-        Long idLegalRepresentativeBD = Long.parseLong(text);
-        LegalRepresentative legalRepresentative = serviceLegalRepresentative.findById(idLegalRepresentativeBD);
-        setValue(legalRepresentative);
+    public void setAsText(String id) throws IllegalArgumentException {
+        if (id != null && !id.isEmpty()) {
+            try {
+                Long idLegalRepresentativeBD = Long.parseLong(id);
+                LegalRepresentative legalRepresentative = serviceLegalRepresentative.findById(idLegalRepresentativeBD);
+                this.setValue(legalRepresentative);
+            } catch (NumberFormatException e) {
+                setValue(null);
+            }
+        }
     }
 }
